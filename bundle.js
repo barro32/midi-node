@@ -69,8 +69,8 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Board_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Player_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Board_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Player_js__ = __webpack_require__(2);
 
 
 
@@ -85,6 +85,35 @@ document.addEventListener('keydown', (e) => {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Board {
+	constructor(notes, times) {
+		this.notes = notes;
+		this.times = times;
+	}
+
+	build() {
+		const board = document.getElementById('board');
+		for(let i = 0; i <= this.notes; i++) {
+			let row = document.createElement('div');
+			row.className = 'row-' + i;
+			board.appendChild(row);
+			for(let j = 0; j <= this.times; j++) {
+				let tile = document.createElement('div'); // TODO: add data attributes for row and col
+				tile.classList.add('tile-' + i + '-' + j);
+				tile.classList.add('tile');
+				row.appendChild(tile);
+			}
+		}
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Board;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123,37 +152,6 @@ class Player {
 	}
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Player;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Board {
-	constructor(properties) {
-		this.notes = notes;
-		this.times = times;
-
-	}
-
-	build() {
-		console.log('hi');
-		const board = document.getElementById('board');
-		for(let i = 0; i <= this.notes; i++) {
-			let row = document.createElement('div');
-			row.className = 'row-' + i;
-			board.appendChild(row);
-			for(let j = 0; i <= this.times; j++) {
-				let tile = document.createElement('div'); // TODO: add data attributes for row and col
-				tile.classList.add('tile-' + i + '-' + j);
-				tile.classList.add('tile');
-				row.appendChild(tile);
-			}
-		}
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Board;
 
 
 /***/ })
