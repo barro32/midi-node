@@ -1,5 +1,5 @@
 export default class Player {
-	constuctor(properties) {
+	constuctor(note, time) {
 		this.note = note;
 		this.time = time;
 	}

@@ -76,7 +76,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const board = new __WEBPACK_IMPORTED_MODULE_0__Board_js__["a" /* default */](8, 16);
 board.build();
-const player = new __WEBPACK_IMPORTED_MODULE_1__Player_js__["a" /* default */](0, 0);
+const player = new __WEBPACK_IMPORTED_MODULE_1__Player_js__["a" /* default */](1, 2);
+console.log(player);
+board.addPlayer(player);
+
+// const loop = window.setInterval(board.drawPlayers.bind(board), 500);
 
 document.addEventListener('keydown', (e) => {
 	player.input(e.key);
@@ -98,7 +102,8 @@ class Board {
 		const board = document.getElementById('board');
 		for(let i = 0; i <= this.notes; i++) {
 			let row = document.createElement('div');
-			row.className = 'row-' + i;
+			row.classList.add = 'row';
+			row.classList.add = 'row-' + i;
 			board.appendChild(row);
 			for(let j = 0; j <= this.times; j++) {
 				let tile = document.createElement('div'); // TODO: add data attributes for row and col
@@ -106,6 +111,23 @@ class Board {
 				tile.classList.add('tile');
 				row.appendChild(tile);
 			}
+		}
+	}
+
+	addPlayer(player) {
+		console.log(player);
+		if(!this.players || !this.players.length) {
+			this.players = [];
+		}
+		this.players.push(player);
+	}
+
+	drawPlayers() {
+		for(let player in this.players) {
+			console.log(this.players[player].note, this.players[player].time);
+			const tile = getElementByClass(`tile-${player.note}-${player.time}`);
+			console.log(tile);
+			tile.classList.add('player');
 		}
 	}
 }
@@ -118,7 +140,7 @@ class Board {
 
 "use strict";
 class Player {
-	constuctor(properties) {
+	constuctor(note, time) {
 		this.note = note;
 		this.time = time;
 	}
