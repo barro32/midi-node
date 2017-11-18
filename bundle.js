@@ -75,12 +75,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 const board = new __WEBPACK_IMPORTED_MODULE_0__Board_js__["a" /* default */](8, 16);
-board.build();
 const player = new __WEBPACK_IMPORTED_MODULE_1__Player_js__["a" /* default */](1, 2);
-console.log(player);
 board.addPlayer(player);
+board.drawPlayers();
 
-// const loop = window.setInterval(board.drawPlayers.bind(board), 500);
+const loop = window.setInterval(board.drawPlayers.bind(board), 500);
 
 document.addEventListener('keydown', (e) => {
 	player.input(e.key);
@@ -93,9 +92,11 @@ document.addEventListener('keydown', (e) => {
 
 "use strict";
 class Board {
-	constructor(notes, times) {
+	constructor(notes, beats) {
 		this.notes = notes;
-		this.times = times;
+		this.beats = beats;
+		this.tiles = [];
+		this.build();
 	}
 
 	build() {
@@ -105,17 +106,23 @@ class Board {
 			row.classList.add = 'row';
 			row.classList.add = 'row-' + i;
 			board.appendChild(row);
-			for(let j = 0; j <= this.times; j++) {
+			for(let j = 0; j <= this.beats; j++) {
 				let tile = document.createElement('div'); // TODO: add data attributes for row and col
 				tile.classList.add('tile-' + i + '-' + j);
 				tile.classList.add('tile');
 				row.appendChild(tile);
 			}
 		}
+		this.tiles = document.getElementsByClassName('tile');
+	}
+
+	clearBoard() {
+		for(let tile of this.tiles) {
+			tile.classList.remove('player');
+		}
 	}
 
 	addPlayer(player) {
-		console.log(player);
 		if(!this.players || !this.players.length) {
 			this.players = [];
 		}
@@ -123,11 +130,11 @@ class Board {
 	}
 
 	drawPlayers() {
-		for(let player in this.players) {
-			console.log(this.players[player].note, this.players[player].time);
-			const tile = getElementByClass(`tile-${player.note}-${player.time}`);
-			console.log(tile);
-			tile.classList.add('player');
+		this.clearBoard();
+		for(let i in this.players) {
+			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
+			const tile = document.getElementsByClassName(tileClass);
+			tile[0].classList.add('player');
 		}
 	}
 }
@@ -140,29 +147,29 @@ class Board {
 
 "use strict";
 class Player {
-	constuctor(note, time) {
+	constructor(note, beat) {
 		this.note = note;
-		this.time = time;
+		this.beat = beat;
 	}
 
 	up() {
-		if(this.note < 8) {
-			this.note++;
-		}
-	}
-	down() {
 		if(this.note > 0) {
 			this.note--;
 		}
 	}
+	down() {
+		if(this.note < 8) {
+			this.note++;
+		}
+	}
 	left() {
-		if(this.time > 0) {
-			this.time--;
+		if(this.beat > 0) {
+			this.beat--;
 		}
 	}
 	right() {
-		if(this.time < 16) {
-			this.time++;
+		if(this.beat < 16) {
+			this.beat++;
 		}
 	}
 

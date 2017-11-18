@@ -1,7 +1,9 @@
 export default class Board {
-	constructor(notes, times) {
+	constructor(notes, beats) {
 		this.notes = notes;
-		this.times = times;
+		this.beats = beats;
+		this.tiles = [];
+		this.build();
 	}
 
 	build() {
@@ -11,17 +13,23 @@ export default class Board {
 			row.classList.add = 'row';
 			row.classList.add = 'row-' + i;
 			board.appendChild(row);
-			for(let j = 0; j <= this.times; j++) {
+			for(let j = 0; j <= this.beats; j++) {
 				let tile = document.createElement('div'); // TODO: add data attributes for row and col
 				tile.classList.add('tile-' + i + '-' + j);
 				tile.classList.add('tile');
 				row.appendChild(tile);
 			}
 		}
+		this.tiles = document.getElementsByClassName('tile');
+	}
+
+	clearBoard() {
+		for(let tile of this.tiles) {
+			tile.classList.remove('player');
+		}
 	}
 
 	addPlayer(player) {
-		console.log(player);
 		if(!this.players || !this.players.length) {
 			this.players = [];
 		}
@@ -29,11 +37,11 @@ export default class Board {
 	}
 
 	drawPlayers() {
-		for(let player in this.players) {
-			console.log(this.players[player].note, this.players[player].time);
-			const tile = getElementByClass(`tile-${player.note}-${player.time}`);
-			console.log(tile);
-			tile.classList.add('player');
+		this.clearBoard();
+		for(let i in this.players) {
+			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
+			const tile = document.getElementsByClassName(tileClass);
+			tile[0].classList.add('player');
 		}
 	}
 }

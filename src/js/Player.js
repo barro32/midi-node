@@ -1,27 +1,27 @@
 export default class Player {
-	constuctor(note, time) {
+	constructor(note, beat) {
 		this.note = note;
-		this.time = time;
+		this.beat = beat;
 	}
 
 	up() {
-		if(this.note < 8) {
-			this.note++;
-		}
-	}
-	down() {
 		if(this.note > 0) {
 			this.note--;
 		}
 	}
+	down() {
+		if(this.note < 8) {
+			this.note++;
+		}
+	}
 	left() {
-		if(this.time > 0) {
-			this.time--;
+		if(this.beat > 0) {
+			this.beat--;
 		}
 	}
 	right() {
-		if(this.time < 16) {
-			this.time++;
+		if(this.beat < 16) {
+			this.beat++;
 		}
 	}
 
