@@ -79,7 +79,8 @@ const player = new __WEBPACK_IMPORTED_MODULE_1__Player_js__["a" /* default */](1
 board.addPlayer(player);
 board.drawPlayers();
 
-const loop = window.setInterval(board.drawPlayers.bind(board), 500);
+const playerLoop = window.setInterval(board.drawPlayers.bind(board), 500);
+const beatLoop = window.setInterval(board.step.bind(board), 500);
 
 document.addEventListener('keydown', (e) => {
 	player.input(e.key);
@@ -96,6 +97,7 @@ class Board {
 		this.notes = notes;
 		this.beats = beats;
 		this.tiles = [];
+		this.beat = 0;
 		this.build();
 	}
 
@@ -107,9 +109,11 @@ class Board {
 			row.classList.add = 'row-' + i;
 			board.appendChild(row);
 			for(let j = 0; j <= this.beats; j++) {
-				let tile = document.createElement('div'); // TODO: add data attributes for row and col
+				let tile = document.createElement('div');
 				tile.classList.add('tile-' + i + '-' + j);
 				tile.classList.add('tile');
+				tile.dataset.beat = j;
+				tile.dataset.note = i;
 				row.appendChild(tile);
 			}
 		}
@@ -135,6 +139,21 @@ class Board {
 			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
 			const tile = document.getElementsByClassName(tileClass);
 			tile[0].classList.add('player');
+		}
+	}
+
+	step() {
+		for(let tile of this.tiles) {
+			tile.classList.remove('now');
+		}
+		const tiles = document.querySelectorAll('[data-beat="'+this.beat+'"]');
+		for(let tile of tiles) {
+			tile.classList.add('now');
+		}
+		if(this.beat < this.beats) {
+			this.beat++;
+		} else {
+			this.beat = 0;
 		}
 	}
 }

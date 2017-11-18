@@ -15,3 +15,6 @@
 .tile.player {
 	background-color: red;
 }
+.tile.now {
+	background-color: yellow;
+}

@@ -6,7 +6,8 @@ const player = new Player(1, 2);
 board.addPlayer(player);
 board.drawPlayers();
 
-const loop = window.setInterval(board.drawPlayers.bind(board), 500);
+const playerLoop = window.setInterval(board.drawPlayers.bind(board), 500);
+const beatLoop = window.setInterval(board.step.bind(board), 500);
 
 document.addEventListener('keydown', (e) => {
 	player.input(e.key);

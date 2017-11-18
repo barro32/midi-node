@@ -3,6 +3,7 @@ export default class Board {
 		this.notes = notes;
 		this.beats = beats;
 		this.tiles = [];
+		this.beat = 0;
 		this.build();
 	}
 
@@ -14,9 +15,11 @@ export default class Board {
 			row.classList.add = 'row-' + i;
 			board.appendChild(row);
 			for(let j = 0; j <= this.beats; j++) {
-				let tile = document.createElement('div'); // TODO: add data attributes for row and col
+				let tile = document.createElement('div');
 				tile.classList.add('tile-' + i + '-' + j);
 				tile.classList.add('tile');
+				tile.dataset.beat = j;
+				tile.dataset.note = i;
 				row.appendChild(tile);
 			}
 		}
@@ -42,6 +45,21 @@ export default class Board {
 			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
 			const tile = document.getElementsByClassName(tileClass);
 			tile[0].classList.add('player');
+		}
+	}
+
+	step() {
+		for(let tile of this.tiles) {
+			tile.classList.remove('now');
+		}
+		const tiles = document.querySelectorAll('[data-beat="'+this.beat+'"]');
+		for(let tile of tiles) {
+			tile.classList.add('now');
+		}
+		if(this.beat < this.beats) {
+			this.beat++;
+		} else {
+			this.beat = 0;
 		}
 	}
 }
