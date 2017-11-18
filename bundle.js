@@ -98,6 +98,14 @@ class Board {
 		this.beats = beats;
 		this.tiles = [];
 		this.beat = 0;
+		const audioContext = new window.AudioContext();
+		this.frequencies = [880.00, 783.99, 698.46, 659.25, 587.33, 523.25, 493.88, 440.00];
+		this.osc = audioContext.createOscillator();
+		this.osc.type = 'square';
+		this.osc.frequency.value = 440;
+		this.osc.connect(audioContext.destination);
+
+		this.osc.start();
 		this.build();
 	}
 
@@ -114,6 +122,7 @@ class Board {
 				tile.classList.add('tile');
 				tile.dataset.beat = j;
 				tile.dataset.note = i;
+				tile.dataset.frequency = this.frequencies[i];
 				row.appendChild(tile);
 			}
 		}
@@ -149,12 +158,21 @@ class Board {
 		const tiles = document.querySelectorAll('[data-beat="'+this.beat+'"]');
 		for(let tile of tiles) {
 			tile.classList.add('now');
+			if(tile.classList.contains('player')) {
+				this.playSound(tile.getAttribute('data-frequency'));
+			}
 		}
 		if(this.beat < this.beats) {
 			this.beat++;
 		} else {
 			this.beat = 0;
 		}
+	}
+
+	playSound(freq) {
+		// this.osc.stop();
+		this.osc.frequency.value = freq;
+		// this.osc.start();
 	}
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Board;
