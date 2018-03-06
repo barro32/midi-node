@@ -51,6 +51,7 @@ export default class Board {
 	drawPlayers() {
 		this.clearBoard();
 		for(let i in this.players) {
+			console.log('conflict?');
 			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
 			const tile = document.getElementsByClassName(tileClass);
 			tile[0].classList.add('player');
