@@ -1,18 +1,25 @@
+import frequencies from './frequencies';
+
 export default class Board {
 	constructor(notes, beats) {
 		this.notes = notes;
 		this.beats = beats;
 		this.tiles = [];
 		this.beat = 0;
-		const audioContext = new window.AudioContext();
-		this.frequencies = [880.00, 783.99, 698.46, 659.25, 587.33, 523.25, 493.88, 440.00];
-		this.osc = audioContext.createOscillator();
+		this.frequencies = frequencies;
+
+		this.startOsc();
+		this.build();
+	}
+
+	startOsc() {
+		this.audioContext = new window.AudioContext();
+		this.osc = this.audioContext.createOscillator();
 		this.osc.type = 'square';
-		this.osc.frequency.value = 440;
-		this.osc.connect(audioContext.destination);
+		this.osc.frequency.value = this.frequencies[0];
+		this.osc.connect(this.audioContext.destination);
 
 		this.osc.start();
-		this.build();
 	}
 
 	build() {
@@ -50,11 +57,11 @@ export default class Board {
 
 	drawPlayers() {
 		this.clearBoard();
-		for(let i in this.players) {
-			const tileClass = `tile-${this.players[i].note}-${this.players[i].beat}`;
+		this.players.forEach(player => {
+			const tileClass = `tile-${player.note}-${player.beat}`;
 			const tile = document.getElementsByClassName(tileClass);
-			tile[0].classList.add('player');
-		}
+			tile[0].classList.add('player');	
+		});
 	}
 
 	step() {
