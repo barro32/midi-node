@@ -1,5 +1,5 @@
-import Board from './Board.js';
-import Player from './Player.js';
+import Board from './Board';
+import Player from './Player';
 
 const board = new Board(8, 16);
 const player = new Player(1, 2);
@@ -9,6 +9,4 @@ board.drawPlayers();
 const playerLoop = window.setInterval(board.drawPlayers.bind(board), 500);
 const beatLoop = window.setInterval(board.step.bind(board), 500);
 
-document.addEventListener('keydown', (e) => {
-	player.input(e.key);
-});
+document.addEventListener('keydown', e => player.input(e.key));
