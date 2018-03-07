@@ -65,21 +65,15 @@ export default class Board {
 	}
 
 	step() {
-		for(let tile of this.tiles) {
-			tile.classList.remove('now');
-		}
+		[...this.tiles].forEach(tile => {tile.classList.remove('now')});
 		const tiles = document.querySelectorAll('[data-beat="'+this.beat+'"]');
-		for(let tile of tiles) {
+		tiles.forEach(tile => {
 			tile.classList.add('now');
 			if(tile.classList.contains('player')) {
 				this.playSound(tile.getAttribute('data-frequency'));
 			}
-		}
-		if(this.beat < this.beats) {
-			this.beat++;
-		} else {
-			this.beat = 0;
-		}
+		});
+		this.beat = this.beat < this.beats ? this.beat + 1 : 0;
 	}
 
 	playSound(freq) {
