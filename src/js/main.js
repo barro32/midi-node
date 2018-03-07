@@ -2,7 +2,7 @@ import Board from './Board';
 import Player from './Player';
 
 const board = new Board(8, 16);
-const player = new Player(1, 2);
+const player = new Player(1, 2, board);
 board.addPlayer(player);
 board.drawPlayers();
 

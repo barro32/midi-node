@@ -1,7 +1,8 @@
 export default class Player {
-	constructor(note, beat) {
+	constructor(note, beat, board) {
 		this.note = note;
 		this.beat = beat;
+		this.board = board;
 	}
 
 	up() {
@@ -24,11 +25,15 @@ export default class Player {
 			this.beat++;
 		}
 	}
+	playPause() {
+		this.board.playPause();
+	}
 
 	input(key) {
 		if(key === 'ArrowUp') this.up();
 		if(key === 'ArrowDown') this.down();
 		if(key === 'ArrowLeft') this.left();
 		if(key === 'ArrowRight') this.right();
+		if(key === ' ') this.playPause();
 	}
 }

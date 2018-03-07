@@ -76,6 +76,11 @@ export default class Board {
 		this.beat = this.beat < this.beats ? this.beat + 1 : 0;
 	}
 
+	playPause() {
+		this.osc.stop();
+		// TODO: start again
+	}
+
 	playSound(freq) {
 		// this.osc.stop();
 		this.osc.frequency.value = freq;
