@@ -25,8 +25,8 @@ export default class Player {
 			this.beat++;
 		}
 	}
-	playPause() {
-		this.board.playPause();
+	markTile() {
+		this.board.markTile(this.note, this.beat);
 	}
 
 	input(key) {
@@ -34,6 +34,6 @@ export default class Player {
 		if(key === 'ArrowDown') this.down();
 		if(key === 'ArrowLeft') this.left();
 		if(key === 'ArrowRight') this.right();
-		if(key === ' ') this.playPause();
+		if(key === ' ') this.markTile();
 	}
 }

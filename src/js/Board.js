@@ -20,6 +20,7 @@ export default class Board {
 		this.osc.connect(this.audioContext.destination);
 
 		this.osc.start();
+		this.isPlaying = true;
 	}
 
 	build() {
@@ -65,20 +66,21 @@ export default class Board {
 	}
 
 	step() {
-		[...this.tiles].forEach(tile => {tile.classList.remove('now')});
-		const tiles = document.querySelectorAll('[data-beat="'+this.beat+'"]');
-		tiles.forEach(tile => {
-			tile.classList.add('now');
-			if(tile.classList.contains('player')) {
-				this.playSound(tile.getAttribute('data-frequency'));
+		[...this.tiles].forEach(tile => {
+			tile.classList.remove('now');
+			if(Number(tile.getAttribute('data-beat')) === this.beat) {
+				tile.classList.add('now');
+				if(tile.classList.contains('player')) {
+					this.playSound(tile.getAttribute('data-frequency'));
+				}
 			}
 		});
 		this.beat = this.beat < this.beats ? this.beat + 1 : 0;
 	}
 
 	playPause() {
-		this.osc.stop();
-		// TODO: start again
+		this.isPlaying ? this.osc.stop() : this.osc.start();
+		this.isPlaying = !this.isPlaying;
 	}
 
 	playSound(freq) {
