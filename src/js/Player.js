@@ -28,6 +28,9 @@ export default class Player {
 	markTile() {
 		this.board.markTile(this.note, this.beat);
 	}
+	stopSound() {
+		this.board.stopSound();
+	}
 
 	input(key) {
 		if(key === 'ArrowUp') this.up();
@@ -35,5 +38,6 @@ export default class Player {
 		if(key === 'ArrowLeft') this.left();
 		if(key === 'ArrowRight') this.right();
 		if(key === ' ') this.markTile();
+		if(key === 'Escape') this.stopSound();
 	}
 }
