@@ -16,8 +16,8 @@ export default class Board {
 		const board = document.getElementById('board');
 		for(let i = 0; i < this.notes; i++) {
 			let row = document.createElement('div');
-			row.classList.add = 'row';
-			row.classList.add = `row-${i}`;
+			row.classList.add('row');
+			row.classList.add(`row-${i}`);
 			board.appendChild(row);
 			for(let j = 0; j < this.beats; j++) {
 				let tile = document.createElement('div');
