@@ -13,9 +13,9 @@ body {
 }
 #title {
 	background: rgb(150,150,150);
-	background: linear-gradient(15deg, rgb(150,150,150), rgb(200,200,200));
+	background: linear-gradient(rgb(200,200,200), rgb(150,150,150));
 	display: inline-block;
-	padding: 5px 20px;
+	padding: 0.5rem 4rem;
 	border-radius: 2px;
 	box-shadow: 0 1px 1px rgba(255,255,255,0.3) inset, 0 1px 1px rgba(0,0,0,0.5);
 	margin-bottom: 10px;
@@ -24,6 +24,28 @@ body {
 	color: rgb(75, 100, 100);
 	text-shadow: 0 1px 1px rgba(255,255,255,0.5);
 	font-weight: normal;
+}
+#title:before, 
+#title:after {
+	content: "×";
+	font-weight: bold;
+	background: radial-gradient(#fff, #999);
+	border-radius: 50%;
+	padding: 1px;
+	line-height: 0.75rem;
+	position: absolute;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+	margin-top: 0.5rem;
+	font-size: 1rem;
+	color: #888;
+	text-shadow: 0 1px 0 #fff;
+}
+#title:before {
+	content: "+";
+	margin-left: -3.25rem;
+}
+#title:after {
+	margin-left: 2.75rem;
 }
 #version {
 }
@@ -44,6 +66,7 @@ body {
 	grid-gap: 2px;
 	padding: 2px;
 	background-color: rgba(0, 50, 0, 0.5);
+	border-radius: 4px;
 }
 .tile {
 	width: 100%;
