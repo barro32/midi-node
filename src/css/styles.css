@@ -4,12 +4,8 @@
 }
 #board {
 	display: grid;
-<<<<<<< HEAD
-	margin: 0 auto;
-=======
 	grid-template-columns: repeat(16, 1fr);
 	grid-template-rows: repeat(8, 1fr);
->>>>>>> 738250cf8e6ed446e3eecadfefb41da820901588
 	border: 1px solid red;
 	width: 100%;
 	height: 100%;
