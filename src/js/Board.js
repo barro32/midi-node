@@ -14,14 +14,14 @@ export default class Board {
 
 	build() {
 		const board = document.getElementById('board');
-		for(let i = 0; i < this.notes; i++) {
-			for(let j = 0; j < this.beats; j++) {
+		for(let note = 0; note < this.notes; note++) {
+			for(let beat = 0; beat < this.beats; beat++) {
 				let tile = document.createElement('div');
-				tile.classList.add(`tile-${i}-${j}`);
-				tile.classList.add('tile');
-				tile.dataset.beat = j;
-				tile.dataset.note = i;
-				tile.dataset.frequency = this.frequencies[i];
+				tile.classList.add('tile', `tile-${note}-${beat}`);
+				tile.classList.toggle('beat', !(beat % 2));
+				tile.dataset.beat = beat;
+				tile.dataset.note = note;
+				tile.dataset.frequency = this.frequencies[note];
 				board.appendChild(tile);
 			}
 		}
