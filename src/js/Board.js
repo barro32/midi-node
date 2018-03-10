@@ -15,10 +15,6 @@ export default class Board {
 	build() {
 		const board = document.getElementById('board');
 		for(let i = 0; i < this.notes; i++) {
-			let row = document.createElement('div');
-			row.classList.add('row');
-			row.classList.add(`row-${i}`);
-			board.appendChild(row);
 			for(let j = 0; j < this.beats; j++) {
 				let tile = document.createElement('div');
 				tile.classList.add(`tile-${i}-${j}`);
@@ -26,7 +22,7 @@ export default class Board {
 				tile.dataset.beat = j;
 				tile.dataset.note = i;
 				tile.dataset.frequency = this.frequencies[i];
-				row.appendChild(tile);
+				board.appendChild(tile);
 			}
 		}
 		this.tiles = document.getElementsByClassName('tile');
