@@ -10,7 +10,7 @@ pages:
    - npm install
    - npm run build
    - mkdir public
-   - mv app public
+   - mv app/* public
   artifacts:
     paths:
     - public
