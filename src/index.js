@@ -1,5 +1,5 @@
-import Board from './Board';
-import Player from './Player';
+import Board from './js/Board';
+import Player from './js/Player';
 
 const board = new Board(8, 16);
 const player = new Player(1, 2, board);
