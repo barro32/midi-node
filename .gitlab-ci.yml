@@ -11,7 +11,7 @@ pages:
    - npm run build
    - mkdir public
    - mv index.html public
-   - mv src/css/* public/src/css
+   - mv css/* public
    - mv bundle.js public
   artifacts:
     paths:
