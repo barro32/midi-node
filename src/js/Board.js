@@ -13,9 +13,9 @@ export default class Board {
 	}
 
 	build() {
-		const board = document.getElementById('board');
-		for(let note = 0; note < this.notes; note++) {
-			for(let beat = 0; beat < this.beats; beat++) {
+		const board = document.querySelector('.board');
+		for (let note = 0; note < this.notes; note++) {
+			for (let beat = 0; beat < this.beats; beat++) {
 				let tile = document.createElement('div');
 				tile.classList.add('tile', `tile-${note}-${beat}`);
 				tile.classList.toggle('beat', !(beat % 2));
@@ -25,17 +25,17 @@ export default class Board {
 				board.appendChild(tile);
 			}
 		}
-		this.tiles = document.getElementsByClassName('tile');
+		this.tiles = document.querySelectorAll('.tile');
 	}
 
 	clearBoard() {
-		for(let tile of this.tiles) {
+		for (let tile of this.tiles) {
 			tile.classList.remove('player');
 		}
 	}
 
 	addPlayer(player) {
-		if(!this.players || !this.players.length) {
+		if (!this.players || !this.players.length) {
 			this.players = [];
 		}
 		this.players.push(player);
@@ -46,16 +46,16 @@ export default class Board {
 		this.players.forEach(player => {
 			const tileClass = `tile-${player.note}-${player.beat}`;
 			const tile = document.getElementsByClassName(tileClass);
-			tile[0].classList.add('player');	
+			tile[0].classList.add('player');
 		});
 	}
 
 	step() {
 		[...this.tiles].forEach(tile => {
 			tile.classList.remove('now');
-			if(Number(tile.getAttribute('data-beat')) === this.beat) {
+			if (Number(tile.getAttribute('data-beat')) === this.beat) {
 				tile.classList.add('now');
-				if(tile.classList.contains('mark')) {
+				if (tile.classList.contains('mark')) {
 					this.playSound(tile.getAttribute('data-frequency'));
 				}
 			}
