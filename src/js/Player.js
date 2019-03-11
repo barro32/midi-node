@@ -6,22 +6,22 @@ export default class Player {
 	}
 
 	up() {
-		if(this.note > 0) {
+		if (this.note > 0) {
 			this.note--;
 		}
 	}
 	down() {
-		if(this.note < 8) {
+		if (this.note < 8) {
 			this.note++;
 		}
 	}
 	left() {
-		if(this.beat > 0) {
+		if (this.beat > 0) {
 			this.beat--;
 		}
 	}
 	right() {
-		if(this.beat < 16) {
+		if (this.beat < 16) {
 			this.beat++;
 		}
 	}
@@ -33,11 +33,11 @@ export default class Player {
 	}
 
 	input(key) {
-		if(key === 'ArrowUp') this.up();
-		if(key === 'ArrowDown') this.down();
-		if(key === 'ArrowLeft') this.left();
-		if(key === 'ArrowRight') this.right();
-		if(key === ' ') this.markTile();
-		if(key === 'Escape') this.stopSound();
+		if (key === 'ArrowUp') this.up();
+		if (key === 'ArrowDown') this.down();
+		if (key === 'ArrowLeft') this.left();
+		if (key === 'ArrowRight') this.right();
+		if (key === ' ') this.markTile();
+		if (key === 'Escape') this.stopSound();
 	}
 }

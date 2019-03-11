@@ -110,7 +110,6 @@ body {
 }
 .controls button {
 	background-color: lightgray;
-	border: 1px solid white;
 	border-radius: 10% / 50%;
 	box-shadow: 0 2px 2px black, inset 0 1px 1px white;
 	display: flex;
@@ -118,6 +117,8 @@ body {
 	align-items: center;
 	text-shadow: 0 -1px white;
 	font-family: mono;
+	font-size: 24px;
+	color: #666;
 }
 
 .controls__up {

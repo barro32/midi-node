@@ -10,3 +10,5 @@ const playerLoop = window.setInterval(board.drawPlayers.bind(board), 500);
 const beatLoop = window.setInterval(board.step.bind(board), 500);
 
 document.addEventListener('keydown', e => player.input(e.key));
+const controls = document.querySelectorAll('.controls button');
+[...controls].forEach(c => c.addEventListener('click', e => player.input(c.dataset.key)));
