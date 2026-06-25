@@ -2,6 +2,8 @@
 
 A small browser sequencer built with the Web Audio API.
 
+https://barro32.github.io/midi-node/
+
 ## Features
 
 - 8-note by 16-step sequencer grid
@@ -30,4 +32,4 @@ Open `app/index.html` in a browser.
 
 This started as a quick multiplayer music-game/sequencer experiment. It now acts as a simple Web Audio API demo: the grid schedules oscillator notes, applies a short gain envelope per note, and exposes basic synth controls in the browser.
 
-https://barro32.gitlab.io/midi-node
+Deployed with GitHub Pages from the `app` directory after `npm run build`.
