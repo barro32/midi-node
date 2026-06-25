@@ -1,7 +1,7 @@
 {
   "name": "midi-node",
   "version": "1.0.0",
-  "description": "Multiplayer music game",
+  "description": "Browser-based step sequencer using the Web Audio API",
   "main": "main.js",
   "dependencies": {},
   "devDependencies": {
@@ -15,17 +15,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/barro32/midi-node.git"
+    "url": "git+ssh://git@github.com/barro32/midi-node.git"
   },
   "keywords": [
-    "Node",
+    "web-audio",
+    "sequencer",
     "midi",
-    "socket"
+    "browser",
+    "music"
   ],
   "author": "Daniel Barrington",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/barro32/midi-node/issues"
+    "url": "https://github.com/barro32/midi-node/issues"
   },
-  "homepage": "https://gitlab.com/barro32/midi-node#README"
+  "homepage": "https://github.com/barro32/midi-node#readme"
 }

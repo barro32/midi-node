@@ -6,25 +6,37 @@ export default class Board {
 		this.beats = beats;
 		this.tiles = [];
 		this.beat = 0;
+		this.players = [];
 		this.frequencies = frequencies;
+		this.waveform = 'sine';
+		this.noteLength = 0.18;
+		this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		this.masterGain = this.audioContext.createGain();
+		this.masterGain.gain.value = 0.25;
+		this.masterGain.connect(this.audioContext.destination);
 
-		this.audioContext = new window.AudioContext();
 		this.build();
 	}
 
 	build() {
 		const board = document.querySelector('.board');
+		board.innerHTML = '';
+
 		for (let note = 0; note < this.notes; note++) {
 			for (let beat = 0; beat < this.beats; beat++) {
-				let tile = document.createElement('div');
+				let tile = document.createElement('button');
+				tile.type = 'button';
 				tile.classList.add('tile', `tile-${note}-${beat}`);
 				tile.classList.toggle('beat', !(beat % 2));
 				tile.dataset.beat = beat;
 				tile.dataset.note = note;
 				tile.dataset.frequency = this.frequencies[note];
+				tile.setAttribute('aria-label', `Toggle note ${note + 1}, beat ${beat + 1}`);
+				tile.addEventListener('click', () => this.toggleTile(note, beat));
 				board.appendChild(tile);
 			}
 		}
+
 		this.tiles = document.querySelectorAll('.tile');
 	}
 
@@ -34,10 +46,13 @@ export default class Board {
 		}
 	}
 
-	addPlayer(player) {
-		if (!this.players || !this.players.length) {
-			this.players = [];
+	clearMarks() {
+		for (let tile of this.tiles) {
+			tile.classList.remove('mark');
 		}
+	}
+
+	addPlayer(player) {
 		this.players.push(player);
 	}
 
@@ -46,7 +61,7 @@ export default class Board {
 		this.players.forEach(player => {
 			const tileClass = `tile-${player.note}-${player.beat}`;
 			const tile = document.getElementsByClassName(tileClass);
-			tile[0].classList.add('player');
+			if (tile[0]) tile[0].classList.add('player');
 		});
 	}
 
@@ -60,18 +75,48 @@ export default class Board {
 				}
 			}
 		});
-		this.beat = this.beat < this.beats ? this.beat + 1 : 0;
+		this.beat = this.beat < this.beats - 1 ? this.beat + 1 : 0;
 	}
 
 	markTile(note, beat) {
-		document.querySelector(`.tile-${note}-${beat}`).classList.add('mark');
+		this.toggleTile(note, beat);
+	}
+
+	toggleTile(note, beat) {
+		const tile = document.querySelector(`.tile-${note}-${beat}`);
+		if (tile) tile.classList.toggle('mark');
+	}
+
+	setWaveform(waveform) {
+		this.waveform = waveform;
+	}
+
+	setVolume(volume) {
+		this.masterGain.gain.value = Number(volume);
+	}
+
+	async resumeAudio() {
+		if (this.audioContext.state === 'suspended') {
+			await this.audioContext.resume();
+		}
 	}
 
 	playSound(freq) {
-		let osc = this.audioContext.createOscillator();
-		osc.frequency.value = freq;
-		osc.connect(this.audioContext.destination);
-		osc.start();
-		osc.stop(this.audioContext.currentTime + 0.5);
+		const now = this.audioContext.currentTime;
+		const oscillator = this.audioContext.createOscillator();
+		const envelope = this.audioContext.createGain();
+
+		oscillator.type = this.waveform;
+		oscillator.frequency.value = Number(freq);
+
+		envelope.gain.setValueAtTime(0, now);
+		envelope.gain.linearRampToValueAtTime(1, now + 0.01);
+		envelope.gain.exponentialRampToValueAtTime(0.001, now + this.noteLength);
+
+		oscillator.connect(envelope);
+		envelope.connect(this.masterGain);
+
+		oscillator.start(now);
+		oscillator.stop(now + this.noteLength + 0.03);
 	}
 }

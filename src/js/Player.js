@@ -11,7 +11,7 @@ export default class Player {
 		}
 	}
 	down() {
-		if (this.note < 8) {
+		if (this.note < this.board.notes - 1) {
 			this.note++;
 		}
 	}
@@ -21,15 +21,15 @@ export default class Player {
 		}
 	}
 	right() {
-		if (this.beat < 16) {
+		if (this.beat < this.board.beats - 1) {
 			this.beat++;
 		}
 	}
 	markTile() {
 		this.board.markTile(this.note, this.beat);
 	}
-	stopSound() {
-		this.board.stopSound();
+	clearPattern() {
+		this.board.clearMarks();
 	}
 
 	input(key) {
@@ -38,6 +38,6 @@ export default class Player {
 		if (key === 'ArrowLeft') this.left();
 		if (key === 'ArrowRight') this.right();
 		if (key === ' ') this.markTile();
-		if (key === 'Escape') this.stopSound();
+		if (key === 'Escape') this.clearPattern();
 	}
 }
