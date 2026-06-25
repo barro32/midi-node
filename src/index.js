@@ -41,6 +41,11 @@ document.querySelector('.transport__start').addEventListener('click', start);
 document.querySelector('.transport__stop').addEventListener('click', stop);
 document.querySelector('.transport__clear').addEventListener('click', () => board.clearMarks());
 
+document.querySelector('.layer-toggle__input').addEventListener('change', e => {
+	board.setLayer(e.target.checked ? 'drums' : 'synth');
+	document.querySelector('.layer-toggle__label').textContent = e.target.checked ? 'drums' : 'synth';
+});
+
 document.querySelector('.synth__waveform').addEventListener('change', e => {
 	board.setWaveform(e.target.value);
 });

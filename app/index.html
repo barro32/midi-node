@@ -23,6 +23,16 @@
 			</label>
 		</div>
 		<div class="synth">
+			<label class="layer-toggle" title="Switch the grid between synth notes and drums">
+				<span class="layer-toggle__text">Layer</span>
+				<input class="layer-toggle__input" type="checkbox" />
+				<span class="layer-toggle__track">
+					<span class="layer-toggle__thumb"></span>
+					<span class="layer-toggle__icon layer-toggle__icon--synth">♪</span>
+					<span class="layer-toggle__icon layer-toggle__icon--drums">●</span>
+				</span>
+				<span class="layer-toggle__label">synth</span>
+			</label>
 			<label>
 				Waveform
 				<select class="synth__waveform">
@@ -40,7 +50,7 @@
 	</section>
 	<div class="board"></div>
 	<section class="help tape">
-		Use the arrow keys to move, space/click to toggle notes, escape to clear.
+		Use the arrow keys to move, space/click to toggle the current layer, escape to clear that layer.
 	</section>
 	<section>
 		<div class="controls">
